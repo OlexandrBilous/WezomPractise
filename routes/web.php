@@ -12,22 +12,74 @@
 */
 
 use Illuminate\Support\Facades\Route;
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/blog.blade.php', function(){
-    return view('blog');
-});
-Route::get('/', function () {
-    return view('index')->with('description', 'BLog - Главная страница')
-        ->with('title', 'Blog - Главная страница');
-});
-Route::get('/blog.blade.php', function () {
-    return view('index')->with('description', 'Blog - Главная страница')
-        ->with('title', 'Blog - Главная страница');
-});
-Route::get('/{page}', function ($page) {
-    $data = array('description' => 'Blog - ' . $page,
-        'title' => 'Blog - ' . $page);
-    return view($page, $data);
-});
+
+Route::get('/', 'ArticleController@showArticle')->name('index');
+Route::get('/about', [
+    'as'=>'aboutone',
+    'uses'=>'ArticleController@about'
+]);
+Route::get('/articleOne/{article}' , [
+    'as' => 'articleOne',
+    'uses'=>'Articlecontroller@articleOne'
+]);
+Route::post('/addarticle', [
+    'as'=>'addArticle',
+    'uses'=>'ArticleController@addArticle'
+]);
+
+Route::get('/addtext', [
+    'as'=>'addtext',
+    'uses'=>'ArticleController@addtext'
+]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/article-change/{article}' , [
+    'as' => 'article-change',
+    'uses'=>'Articlecontroller@articleChange'
+]);
+Route::post('/article-save/{article}' , [
+    'as' => 'article-save',
+    'uses'=>'Articlecontroller@articleSave'
+]);
+Route::get('/article-delete/{article}' , [
+    'as' => 'article-delete',
+    'uses'=>'Articlecontroller@articleDelete'
+]);
+Route::get('/article-menu' , [
+    'as' => 'article-menu',
+    'uses'=>'Articlecontroller@showMyArticle'
+]);
+Route::get('/addCategoriesView', [
+    'as'=>'addCategoriesView',
+    'uses'=>'CategoriesController@addCategoriesView'
+]);
+Route::post('/addCategoriesForm', [
+    'as'=>'addCategoriesForm',
+    'uses'=>'CategoriesController@addCategoriesForm'
+]);
+Route::post('/categories-save/{categories}' , [
+    'as' => 'categories-save',
+    'uses'=>'CategoriesController@categoriesSave'
+]);
+Route::get('/showCategories/{category}', [
+    'as' => 'showCategories',
+    'uses' => 'ArticleController@category'
+]);
+Route::post('/comment', [
+    'as' => 'comment',
+    'uses' => 'CommentController@new'
+]);
+// отправка нового комментария
+Route::post('/comment', [
+    'as' => 'comment',
+    'uses' => 'CommentController@new'
+]);
+
+// отправка нового комментария
+Route::post('/comment', [
+    'as' => 'comment',
+    'uses' => 'CommentController@new'
+]);
