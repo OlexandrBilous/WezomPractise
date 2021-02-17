@@ -1,35 +1,19 @@
 @extends('layouts.layout')
 @section('content')
-<form method="post" action="{{ route('addArticle') }}">
-    <div>
-        <h3>Добавление статьи</h3>
-        <div class="form-group">
-            <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="title"
-                   placeholder="Название" value="{{old('title')}}"
-                   aria-label="Username" aria-describedby="addon-wrapping">
-            @error('title')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
 
-            <input type="date" name="postdate"
-                   class="form-control {{$errors->has('postdate') ? 'is-invalid' : ''}}">
-            @error('postdate')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+    <form method="post" action="{{ route('addCategoriesForm') }}">
+        <div>
+            <h3>Добавление категории</h3>
+            <div class="form-group">
+                <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" name="name"
+                       placeholder="Название категории" value="{{old('name')}}"
+                       aria-label="Username" aria-describedby="addon-wrapping">
+                @error('name')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input class="btn btn-primary" type="submit" value="Добавить категорию">
         </div>
-        <div class="form-group">
-
-                <textarea class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="content"
-                          placeholder="Содержимое"
-                          rows="4">{{ old('content') }}</textarea>
-            @error('content')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input class="btn btn-primary" type="submit" value="Разместить статью">
-    </div>
-</form>
+    </form>
 @endsection

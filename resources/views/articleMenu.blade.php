@@ -54,7 +54,7 @@
         </div>
 
     @foreach($articles as $article)
-        @include('blog.cardblog')
+        @include('layouts.articlesv0')
     @endforeach
     {{$articles->links()}}
     @endsection

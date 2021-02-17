@@ -1,20 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-    <div class="dx-main">
 
-
-
-
-        <div class="dx-box-1 pb-100 bg-grey-6">
-            <div class="container">
-                <div class="row vertical-gap md-gap">
-                    <div class="col-lg-8">
-
-
-                        <div class="dx-blog-item dx-box dx-box-decorated">
-                            <a href="single-post.blade.php" class="dx-blog-item-img"><img src="assets/images/blog-3.png" alt=""></a>
-                            <div class="dx-blog-item-cont">
                                 @foreach($articles as $article)
                                     @include('layouts.acticles')
                                 @endforeach

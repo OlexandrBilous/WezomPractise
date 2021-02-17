@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBlogPost;
-
 use App\Http\Requests\StoreCategoriesPost;
 use App\Http\Models\Category;
 use Illuminate\Support\Facades\Auth;
