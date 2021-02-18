@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+
 <form method="post" action="{{ route('addArticle') }}">
     <div>
         <h3>Добавление статьи</h3>

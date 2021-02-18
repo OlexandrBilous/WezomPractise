@@ -19,9 +19,21 @@
         <button class="dx-navbar-burger">
             <span></span><span></span><span></span>
         </button>
+        @foreach($categories as $category)
+        <div class="dx-navbar-content">
 
+            <ul class="dx-nav dx-nav-align-left">
+
+                <li class="dx-drop-item">
+                    <a href="store.html">
+                        {{$category->name}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+                        @endforeach
         <nav class="navbar-nav mr-auto row">
-            @widget('categories')
+
         </nav>
 
 

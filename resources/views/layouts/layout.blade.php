@@ -8,10 +8,6 @@
 </head>
 <body>
 @include('layouts/navbar')
-@include('layouts/header')
-@include('layouts/breadcrumbs')
-@yield("content")
-@include('layouts/footer')
 @include('layouts/scripts')
 @yield('content')
 @yield('category')

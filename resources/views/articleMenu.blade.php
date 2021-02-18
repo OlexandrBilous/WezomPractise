@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-<h3>Ваши статьи</h3>
 @auth
-    {{--        <a href="{{route('addtext')}}" class="btn btn-success">Добавить новую статью</a>--}}
     <div class="container text-center">
         @foreach($categories as $category)
             <a class="p-2 text-muted col-sm" href="{{ $category->link() }}">{{ $category->category }}</a>

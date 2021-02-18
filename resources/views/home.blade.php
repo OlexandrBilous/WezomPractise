@@ -1,5 +1,4 @@
 @extends('layouts.layout')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -16,11 +15,7 @@
 
                         <h3>Вы вошли в систему!</h3><br>
 
-                        <!-- Комментарии -->
-                        <div class="comments">
-                            @foreach($comments as $comment)
-                                <p>{{ $comment->user_id }}: {{ $comment->comment }}</p>
-                            @endforeach
+
                         </div>
                     </div>
                 </div>
