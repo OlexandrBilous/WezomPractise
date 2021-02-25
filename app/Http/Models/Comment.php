@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use App\Http\Models\Article;
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
     /**

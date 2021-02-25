@@ -58,6 +58,17 @@ class ArticleController extends Controller
         return view('articleOne', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
     }
 
+    public function single_post(Article $article)
+    {
+        $user = User::where('id', '=', $article->user_id)->first();
+        $username = $user->name;
+        $categories = Category::where('id', '=', $article->category_id)->first();
+        $category = $categories->name;
+        $comments = Comment::where('articles_id', '=', $article->id)->get();;
+        return view('single_post', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
+    }
+
+
     public function addArticle(StoreBlogPost $request)
     {
         /** @var User $user */

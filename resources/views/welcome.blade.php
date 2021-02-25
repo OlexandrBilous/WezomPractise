@@ -4,6 +4,7 @@
                                     @include('layouts.articles')
                                 @endforeach
                                 {{$articles->links()}}
+
 @stop
 
 

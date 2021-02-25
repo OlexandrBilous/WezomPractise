@@ -24,7 +24,7 @@ class Article extends Model
 
     public function category()
     {
-        return $this->belongsTo(Categories::class);
+        return $this->belongsTo(Category::class);
     }
     public function comment()
     {

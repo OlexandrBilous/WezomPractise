@@ -22,6 +22,10 @@ Route::get('/articleOne/{article}' , [
     'as' => 'articleOne',
     'uses'=>'Articlecontroller@articleOne'
 ]);
+Route::get('/single_post/{article}' , [
+    'as' => 'single_post',
+    'uses'=>'Articlecontroller@single_post'
+]);
 Route::post('/addarticle', [
     'as'=>'addArticle',
     'uses'=>'ArticleController@addArticle'

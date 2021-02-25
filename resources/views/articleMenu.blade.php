@@ -1,15 +1,13 @@
 @extends('layouts.layout')
 @section('content')
-@auth
+
     <div class="container text-center">
-        @foreach($categories as $category)
-            <a class="p-2 text-muted col-sm" href="{{ $category->link() }}">{{ $category->category }}</a>
-        @endforeach
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newArticle">
             Добавление статьи
         </button>
         <a href="{{route('addCategoriesView')}}" class="btn btn-success">Добавить новую категорию</a>
-        @endauth
+
+
         <div class="modal fade" id="newArticle">
             <div class="modal-dialog">
                 <div class="modal-content">
