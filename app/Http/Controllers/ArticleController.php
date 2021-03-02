@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserBlogPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBlogPost;
 use App\Http\Models\Article;
@@ -10,6 +11,7 @@ use App\Http\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\User;
+use App\Events\PostHasViewed;
 class ArticleController extends Controller
 {
     public function showArticle(Request $request)
@@ -37,7 +39,15 @@ class ArticleController extends Controller
 
 
     }
+    public function showMyUncheckedArticle()
+    {
+        $articles = Article::query()->where('user_id', '=', Auth::id())->paginate(3);
+        $categories = Category::all();
+        return view('moderation_list', ['articles' => $articles, 'categories' => $categories]);
 
+
+
+    }
     public function about()
     {
         return view('about');
@@ -54,7 +64,8 @@ class ArticleController extends Controller
         $username = $user->name;
         $categories = Category::where('id', '=', $article->category_id)->first();
         $category = $categories->name;
-        $comments = Comment::where('articles_id', '=', $article->id)->get();;
+        $comments = Comment::where('articles_id', '=', $article->id)->get();
+        event('postHasViewed', $article);
         return view('articleOne', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
     }
 
@@ -79,6 +90,23 @@ class ArticleController extends Controller
 
     }
 
+    public function adminAccess(User $user)
+    {
+        return view('adminAccess', [
+            'user' => $user,
+            'users' => User::all(),
+        ]);
+
+    }
+
+    public function adminAccessSave(User $user, UserBlogPost $request)
+    {
+        $user->fill($request->validated());
+        $user->save();
+        return redirect()->back();
+
+    }
+
     public function articleChange(Article $article)
     {
         return view('textchange', [
@@ -87,7 +115,21 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function articleModerate(Article $article)
+    {
+        return view('moderation', [
+            'article' => $article,
+            'categories' => Category::all(),
+        ]);
+    }
     public function articleSave(Article $article, StoreBlogPost $request)
+    {
+        $article->fill($request->validated());
+        $article->save();
+        return redirect()->back();
+    }
+
+    public function articleCheck(Article $article, StoreBlogPost $request)
     {
         $article->fill($request->validated());
         $article->save();

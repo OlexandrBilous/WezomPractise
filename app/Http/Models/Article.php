@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 class Article extends Model
 {
-    protected $fillable = ['content', 'title', 'postdate', 'user_id', 'category_id'];
+    protected $fillable = ['content', 'title', 'postdate', 'user_id', 'category_id', 'checked'];
     protected $alias = 'articleOne';
 
     public function link()

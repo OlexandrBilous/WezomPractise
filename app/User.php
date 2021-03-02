@@ -11,14 +11,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    const ROLE_USER = 1;
+    const ROLE_MODERATOR = 5;
+    const ROLE_ADMIN = 10;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role', 'updated_at', 'created_at',
     ];
 
     /**
@@ -45,5 +47,13 @@ class User extends Authenticatable
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
     }
 }

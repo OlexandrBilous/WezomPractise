@@ -1,5 +1,3 @@
-@extends('layouts.layout')
-@section('content')
 
     <div class="dx-separator"></div>
     <div class="dx-box-5 pb-100 bg-grey-6">
@@ -27,4 +25,4 @@
 </div>
     @endforeach
                             </div>
-@endsection
+

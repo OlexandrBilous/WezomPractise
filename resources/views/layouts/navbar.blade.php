@@ -18,9 +18,6 @@
 
 
         @widget('categories')
-        <nav class="navbar-nav mr-auto row">
-
-        </nav>
 
 
             <!-- Authentication Links -->

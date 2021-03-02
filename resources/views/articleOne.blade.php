@@ -1,11 +1,11 @@
 @extends('layouts.layout')
 @section('content')
-
-    <h1 class="h3 dx-blog-post-title"><{{$article->title}}</h1>
+<h1 class="h3 dx-blog-post-title"><{{$article->title}}</h1>
     <ul class="dx-blog-post-info">
         <li>Date: {{$article->postdate}}</li>
-
-        <li>Category:
+        Просмотры:
+        <li> {{$article->view_count}}</li>
+        <li>Категория:
             <ul class="dx-blog-post-categories">
 
                 {{ $category }}

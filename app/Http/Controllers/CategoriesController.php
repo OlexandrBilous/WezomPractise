@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('can:categories-panel');
+    }
     public function addCategoriesView()
     {
         return view('addCategories');
