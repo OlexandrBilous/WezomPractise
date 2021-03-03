@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
@@ -68,106 +67,63 @@
 
 
 
-        <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Редактирование статьи</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Заголовок</label>
-                        <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="title" value="{{$article->title}} "  aria-label="Username" aria-describedby="addon-wrapping"  required>
-                        <div class="invalid-feedback">
-                            @error('title')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
+<div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Редактирование статьи</h4>
+    <form class="needs-validation" novalidate>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="firstName">Заголовок</label>
+                <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="title" value="{{$article->title}} "  aria-label="Username" aria-describedby="addon-wrapping"  required>
+                <div class="invalid-feedback">
+                    @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="text">Текст</label>
-                    <div class="form-group">
+        </div>
+
+        <div class="mb-3">
+            <label for="text">Текст</label>
+            <div class="form-group">
                     <textarea class="form-control {{$errors->has('content') ? 'is-invalid' : ''}}" name="content"
                               rows="4">{{$article->content}}</textarea>
-                        @error('content')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
+                @error('content')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-5 mb-3">
-                        <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" name="category_id" >
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
-                            @endforeach
-                        </select>
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="country">Категория</label>
+                <select class="custom-select d-block w-100" name="category_id" >
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+ <br><br>
+                <h5>Опубликовать статью?</h5>
+                <select class="custom-select d-block w-100" name="checked" >
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
+                </select>
+                <br><br><br>
 
-                        <input type="date" name="postdate" value="{{\Carbon\Carbon::create($article->postdate)}}"
-                               class="form-control {{$errors->has('postdate') ? 'is-invalid' : ''}} ">
-                        @error('postdate')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                <input type="date" name="postdate" value="{{\Carbon\Carbon::create($article->postdate)}}"
+                       class="form-control {{$errors->has('postdate') ? 'is-invalid' : ''}} ">
+                @error('postdate')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
 
-                        <hr class="mb-4">
+                <hr class="mb-4">
 
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" required>
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="{{$title}}">
-                    </div>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" required>
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="{{$title}}">
+            </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="form-validation.js"></script></body>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="form-validation.js"></script></body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

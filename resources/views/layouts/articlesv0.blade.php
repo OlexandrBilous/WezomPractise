@@ -47,13 +47,11 @@
 
     <div class="row">
         <div class="col-md-8">
-            <h3 class="pb-4 mb-4 font-italic border-bottom">
-                From the Firehose
-            </h3>
+
 
             <article class="blog-post">
                 <h2 class="blog-post-title"><a href="{{$article->link()}}">{{$article->title}}</a></h2>
-                <p class="blog-post-meta">   {{$article->postdate}} </p>
+                <p class="blog-post-meta"> Дата публикации:  {{ \Carbon\Carbon::parse($article->postdate)->format('d/m/Y')}} </p>
                 <p class="blog-post-meta">  Просмотры:{{$article->view_count}} </p>
                 <p class="blog-post-meta">  Категория:{{$article->category->name}}</p>
                 <p>{{$article->content}} </p>

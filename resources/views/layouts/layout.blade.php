@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Пример на bootstrap 5: Блог - двухколоночный макет блога с пользовательской навигацией, заголовком и содержанием.">
-
-    <title>Блог | Blog Template for Bootstrap</title>
+    <meta name="description" content=" Блог">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Блог</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -44,8 +44,7 @@
     <link href="css/blog.css" rel="stylesheet">
 </head>
 <body>
-@include('layouts.navbar')
-@include('layouts.header')
+@include('layouts.navbarv2')
 
     @yield('content')
     @yield('category')

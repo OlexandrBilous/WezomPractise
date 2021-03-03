@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 @section('content')
 
-    <div class="container text-center">
+
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newArticle">
             Добавление статьи
         </button>
         <a href="{{route('article-list')}}" class="btn btn-warning">Страница модерации</a>
-
+        <div class="container text-center">
         <div class="modal fade" id="newArticle">
             <div class="modal-dialog">
                 <div class="modal-content">
