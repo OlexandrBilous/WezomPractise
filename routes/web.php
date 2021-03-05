@@ -12,6 +12,43 @@
 */
 
 use Illuminate\Support\Facades\Route;
+Route::group(['prefix' => 'admin'], function() {
+Route::group(['middleware' => 'admin'], function() {
+    Route::get('/admin-access/' , [
+        'as' => 'admin-access',
+        'uses'=>'Articlecontroller@adminAccess',
+    ]);
+
+
+
+});
+});
+Route::group(['prefix' => 'moderator'], function() {
+Route::group(['middleware' => 'moderator'], function() {
+    Route::get('/article-moderate/{article}' , [
+        'as' => 'article-moderate',
+        'uses'=>'Articlecontroller@articleModerate'
+    ]);
+    Route::get('/article-list' , [
+        'as' => 'article-list',
+        'uses'=>'Articlecontroller@showMyUncheckedArticle'
+    ]);
+    Route::post('/article-check/{article}' , [
+        'as' => 'article-check',
+        'uses'=>'Articlecontroller@articleCheck'
+    ]);
+
+});
+});
+Route::get('/admin-user-list/', [
+    'as' =>'admin-user-list',
+    'uses'=>'ArticleController@adminUserList'
+]);
+Route::post('/admin-access-save/' , [
+    'as' => 'admin-access-save',
+    'uses'=>'Articlecontroller@adminAccessSave',
+
+]);
 
 Route::get('/', 'ArticleController@showArticle')->name('index');
 Route::get('/about', [
@@ -44,35 +81,13 @@ Route::get('/article-change/{article}' , [
     'as' => 'article-change',
     'uses'=>'Articlecontroller@articleChange'
 ]);
-Route::get('/article-moderate/{article}' , [
-    'as' => 'article-moderate',
-    'uses'=>'Articlecontroller@articleModerate'
-]);
-Route::get('/article-list' , [
-    'as' => 'article-list',
-    'uses'=>'Articlecontroller@showMyUncheckedArticle'
-]);
 
-Route::get('/admin-access/' , [
-    'as' => 'admin-access',
-    'uses'=>'Articlecontroller@adminAccess',
-     'middleware' => ['auth', 'can:user-panel']
-]);
-
-Route::post('/admin-access-save/}' , [
-    'as' => 'admin-access-save',
-    'uses'=>'Articlecontroller@adminAccessSave',
-    'middleware' => ['auth', 'can:user-panel']
-]);
 
 Route::post('/article-save/{article}' , [
     'as' => 'article-save',
     'uses'=>'Articlecontroller@articleSave'
 ]);
-Route::post('/article-check/{article}' , [
-        'as' => 'article-check',
-        'uses'=>'Articlecontroller@articleCheck'
-    ]);
+
 Route::get('/article-delete/{article}' , [
     'as' => 'article-delete',
     'uses'=>'Articlecontroller@articleDelete'

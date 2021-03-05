@@ -15,12 +15,13 @@ class AddUserRoleColumn extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedSmallInteger('role')->default(1);
+            $table->unsignedBigInteger('role_id')->default(1);
+            $table->foreign('role_id', 'users_role_id_roles_id')
+                ->references('id')
+                ->on('roles')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
-
-        DB::table('users')->update([
-            'role' => User::ROLE_USER,
-        ]);
     }
 
     /**
@@ -30,8 +31,10 @@ class AddUserRoleColumn extends Migration
      */
     public function down()
     {
+
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+            $table->dropForeign('users_role_id_roles_id');
+            $table->dropColumn('role_id');
         });
     }
 }

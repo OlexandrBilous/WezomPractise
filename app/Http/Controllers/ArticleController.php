@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Role;
 use App\Http\Requests\UserBlogPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBlogPost;
@@ -57,7 +58,7 @@ class ArticleController extends Controller
     {
         return view('addtext');
     }
-
+    // Вывод 1 статьи
     public function articleOne(Article $article)
     {
         $user = User::where('id', '=', $article->user_id)->first();
@@ -79,7 +80,7 @@ class ArticleController extends Controller
         return view('single_post', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
     }
 
-
+     // Добавление новой статьи
     public function addArticle(StoreBlogPost $request)
     {
         /** @var User $user */
@@ -89,16 +90,26 @@ class ArticleController extends Controller
         return redirect()->back();
 
     }
-
+    // Выдача прав пользователям
     public function adminAccess(User $user)
     {
+        $roles = Role::all();
+        $users = User::all();
         return view('adminAccess', [
-            'user' => $user,
-            'users' => User::all(),
+            'users' => $users,
+            'roles' => $roles,
         ]);
 
     }
 
+    public function adminUserList()
+    {
+        $users = User::all();
+        return view('userlist', [
+            'users' => $users,
+        ]);
+
+    }
     public function adminAccessSave(User $user, UserBlogPost $request)
     {
         $user->fill($request->validated());
@@ -106,6 +117,7 @@ class ArticleController extends Controller
         return redirect()->back();
 
     }
+
 
     public function articleChange(Article $article)
     {
@@ -115,13 +127,9 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function articleModerate(Article $article)
-    {
-        return view('moderation', [
-            'article' => $article,
-            'categories' => Category::all(),
-        ]);
-    }
+
+
+    // Сохранение статей
     public function articleSave(Article $article, StoreBlogPost $request)
     {
         $article->fill($request->validated());
@@ -129,13 +137,22 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
+    // Редактирование статей
+
     public function articleCheck(Article $article, StoreBlogPost $request)
     {
         $article->fill($request->validated());
         $article->save();
         return redirect()->back();
     }
-
+    public function articleModerate(Article $article)
+    {
+        return view('moderation', [
+            'article' => $article,
+            'categories' => Category::all(),
+        ]);
+    }
+    // Удаление статей
     public function articleDelete(Article $article, Request $request)
     {
         $article->delete($request->all());

@@ -1,13 +1,15 @@
+@extends('layouts.layout')
+@section('content')
 
-    <form method="post" action="{{ route('admin-access-save') }}">
+    <form method="post" action="{{ route('admin-access-save',$user) }}">
+        <select class="form-control mb-2" name="role_id">
+            @foreach($roles as $role)
+                <option value="{{$role->id}}">{{$role->name}}</option>
+            @endforeach
 
-
-        <select class="form-control mb-2" name="role">
-        <option value="1">Обычный пользователь</option>
-            <option value="5">Модератор</option>
-            <option value="10">Администратор</option>
         </select>
-
         <input type="hidden" name="_token" value="{{ csrf_token() }}" required>
         <input type="submit" value="Выдать права">
     </form>
+
+@endsection

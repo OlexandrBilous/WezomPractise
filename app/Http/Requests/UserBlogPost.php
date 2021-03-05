@@ -14,7 +14,7 @@ class UserBlogPost extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -25,6 +25,10 @@ class UserBlogPost extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role_id' => 'required',
         ];
     }
 }

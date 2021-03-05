@@ -26,6 +26,16 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="role_id">Права</label>
+                            <select name="role_id" >
+                                <option value="1">Администратор</option>
+                                <option value="2">Модератор</option>
+                                <option value="3">Пользователь</option>
+                            </select>
+
+
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

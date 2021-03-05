@@ -4,6 +4,7 @@ namespace App;
 
 use App\Http\Models\Article;
 use App\Http\Models\Comment;
+use App\Http\Models\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,16 +12,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    const ROLE_USER = 1;
-    const ROLE_MODERATOR = 5;
-    const ROLE_ADMIN = 10;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role', 'updated_at', 'created_at',
+        'name', 'email', 'password','role_id', 'updated_at', 'created_at',
     ];
 
     /**
@@ -48,12 +46,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-    public function isAdmin(): bool
+    public function isAdmin()
     {
-        return $this->role === self::ROLE_ADMIN;
+        return $this->role->name == 'Admin';
     }
-    public function isModerator(): bool
+    public function isModerator()
     {
-        return $this->role === self::ROLE_MODERATOR;
+        return $this->role->name == 'Moderator';
+    }
+    public function role()
+    {
+    return $this->belongsTo(Role::class);
     }
 }
