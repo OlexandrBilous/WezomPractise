@@ -1,7 +1,5 @@
 @extends('layouts.layout')
 @section('content')
-
-
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newArticle">
             Добавление статьи
         </button>
@@ -16,26 +14,29 @@
                             <span>&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="addArticle">
                         <form method="post" action="{{ route('addArticle') }}">
+                            <label for="title">Заголовок</label>
                             <input type="text" class="form-control mb-2 {{ $errors->has('title') ? 'is-invalid' : ''}}"
-                                   name="title" placeholder="Название">
+                                   name="title" id="title" >
                             @error('title')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <select class="form-control mb-2" name="category_id">
+                            <label for="category_id">Выберите категорию статьи</label>
+                            <select class="form-control mb-2" name="category_id" id="category_id">
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
 
                             </select>
+                            <label for="content">Текст</label>
                             <textarea class="form-control mb-2 {{ $errors->has('content') ? 'is-invalid' : ''}}"
-                                      name="content"
-                                      placeholder="Содержимое" rows="10"></textarea>
+                                      name="content" id="text"
+                                       rows="10"></textarea>
                             @error('content')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <input type="date" name="postdate" value="{{now()}}"
+                            <input type="date" name="postdate" id="postdate" value="{{now()}}"
                                    class="form-control">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" required>
                             <input type="submit" value="Опубликовать">
@@ -47,7 +48,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
     @foreach($articles as $article)
         @include('layouts.articlesv0')
     @endforeach

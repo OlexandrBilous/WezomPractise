@@ -10,6 +10,7 @@ class Category extends Model
     protected $fillable = ['name'];
     protected $aliasCategories = 'showCategories';
     public $timestamps = false;
+    //Связи
     public function articles()
     {
         return $this->hasMany(Article::class);

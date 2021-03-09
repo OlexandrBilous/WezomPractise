@@ -15,13 +15,13 @@ use App\User;
 use App\Events\PostHasViewed;
 class ArticleController extends Controller
 {
+
+ // Вывод статей на главную страницу
+
     public function showArticle(Request $request)
     {
         $articles = Article::query()
-//            ->when($request->input('category_id'), function (Builder $builder, $categoryId) {
-//                $builder->where('category_id', $categoryId);
-//            })
-            //        route('index' ,['category_id' => $category->id]) Пример для вьюхи
+
             ->where('postdate', '<=', date('Y-m-d'))
             ->paginate(3);
 
@@ -31,34 +31,7 @@ class ArticleController extends Controller
             'categories' => Category::all(),
         ]);
     }
-
-    public function showMyArticle()
-    {
-        $articles = Article::query()->where('user_id', '=', Auth::id())->paginate(3);
-        $categories = Category::all();
-        return view('articleMenu', ['articles' => $articles, 'categories' => $categories]);
-
-
-    }
-    public function showMyUncheckedArticle()
-    {
-        $articles = Article::query()->where('user_id', '=', Auth::id())->paginate(3);
-        $categories = Category::all();
-        return view('moderation_list', ['articles' => $articles, 'categories' => $categories]);
-
-
-
-    }
-    public function about()
-    {
-        return view('about');
-    }
-
-    public function addtext()
-    {
-        return view('addtext');
-    }
-    // Вывод 1 статьи
+// Вывод конкретной статьи
     public function articleOne(Article $article)
     {
         $user = User::where('id', '=', $article->user_id)->first();
@@ -70,16 +43,25 @@ class ArticleController extends Controller
         return view('articleOne', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
     }
 
-    public function single_post(Article $article)
+//Вывод статей пользователя в меню
+    public function showMyArticle()
     {
-        $user = User::where('id', '=', $article->user_id)->first();
-        $username = $user->name;
-        $categories = Category::where('id', '=', $article->category_id)->first();
-        $category = $categories->name;
-        $comments = Comment::where('articles_id', '=', $article->id)->get();;
-        return view('single_post', ['article' => $article, 'username' => $username, 'category' => $category, 'comments' => $comments]);
-    }
+        $articles = Article::query()->where('user_id', '=', Auth::id())->paginate(3);
+        $categories = Category::all();
+        return view('articleMenu', ['articles' => $articles, 'categories' => $categories]);
 
+
+    }
+//Вывод не проверенных админом или модератором статей
+    public function showMyUncheckedArticle()
+    {
+        $articles = Article::query()->where('user_id', '=', Auth::id())->paginate(3);
+        $categories = Category::all();
+        return view('moderation_list', ['articles' => $articles, 'categories' => $categories]);
+
+
+
+    }
      // Добавление новой статьи
     public function addArticle(StoreBlogPost $request)
     {
@@ -99,14 +81,14 @@ class ArticleController extends Controller
         ]);
 
     }
-
+     // Вывод списка пользователей
     public function adminUserList()
     {
         $users = User::all();
         return view('userlist', [
             'users' => $users,
         ]);
-
+// Сохранение прав пользователей
     }
     public function adminAccessSave(User $user, UserBlogPost $request)
     {
@@ -116,33 +98,14 @@ class ArticleController extends Controller
 
     }
 
-
-    public function articleChange(Article $article)
-    {
-        return view('textchange', [
-            'article' => $article,
-            'categories' => Category::all(),
-        ]);
-    }
-
-
-
-    // Сохранение статей
-    public function articleSave(Article $article, StoreBlogPost $request)
-    {
-        $article->fill($request->validated());
-        $article->save();
-        return redirect()->back();
-    }
-
-    // Редактирование статей
-
+    // Сохранение проверенных статей
     public function articleCheck(Article $article, StoreBlogPost $request)
     {
         $article->fill($request->validated());
         $article->save();
         return redirect()->back();
     }
+    // Редактирование статей
     public function articleModerate(Article $article)
     {
         return view('moderation', [

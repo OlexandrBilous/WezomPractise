@@ -16,7 +16,7 @@ class Article extends Model
         return route($this->alias, $this);
 
     }
-
+//Связи
     public function user()
     {
         return $this->belongsTo(User::class);
