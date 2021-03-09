@@ -14,11 +14,23 @@
 use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin'], function() {
 Route::group(['middleware' => 'admin'], function() {
-    Route::get('/admin-access/' , [
+    Route::get('/admin-access/{user}' , [
         'as' => 'admin-access',
         'uses'=>'Articlecontroller@adminAccess',
     ]);
+    Route::get('/addCategoriesView', [
+        'as'=>'addCategoriesView',
+        'uses'=>'CategoriesController@addCategoriesView'
+    ]);
+    Route::get('/admin-user-list/', [
+        'as' =>'admin-user-list',
+        'uses'=>'ArticleController@adminUserList'
+    ]);
+    Route::post('/admin_access_save/{user}' , [
+        'as' => 'admin_access_save',
+        'uses'=>'Articlecontroller@adminAccessSave',
 
+    ]);
 
 
 });
@@ -40,15 +52,6 @@ Route::group(['middleware' => 'moderator'], function() {
 
 });
 });
-Route::get('/admin-user-list/', [
-    'as' =>'admin-user-list',
-    'uses'=>'ArticleController@adminUserList'
-]);
-Route::post('/admin-access-save/' , [
-    'as' => 'admin-access-save',
-    'uses'=>'Articlecontroller@adminAccessSave',
-
-]);
 
 Route::get('/', 'ArticleController@showArticle')->name('index');
 Route::get('/about', [
@@ -96,10 +99,7 @@ Route::get('/article-menu' , [
     'as' => 'article-menu',
     'uses'=>'Articlecontroller@showMyArticle'
 ]);
-Route::get('/addCategoriesView', [
-    'as'=>'addCategoriesView',
-    'uses'=>'CategoriesController@addCategoriesView'
-]);
+
 Route::post('/addCategoriesForm', [
     'as'=>'addCategoriesForm',
     'uses'=>'CategoriesController@addCategoriesForm'

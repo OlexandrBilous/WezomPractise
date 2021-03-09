@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function __construct(){
-        $this->middleware('can:categories-panel,moderation-panel');
-    }
     public function new(CommentPost $request)
     {
         $comment = new Comment($request->validated());

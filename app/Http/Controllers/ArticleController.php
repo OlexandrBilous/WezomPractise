@@ -93,11 +93,9 @@ class ArticleController extends Controller
     // Выдача прав пользователям
     public function adminAccess(User $user)
     {
-        $roles = Role::all();
-        $users = User::all();
         return view('adminAccess', [
-            'users' => $users,
-            'roles' => $roles,
+            'user' => $user,
+            'roles' => Role::all(),
         ]);
 
     }

@@ -28,9 +28,9 @@
                         <div class="form-group row">
                             <label for="role_id">Права</label>
                             <select name="role_id" >
-                                <option value="1">Администратор</option>
+                                <option value="1">Пользователь</option>
                                 <option value="2">Модератор</option>
-                                <option value="3">Пользователь</option>
+                                <option value="3">Администратор</option>
                             </select>
 
 
